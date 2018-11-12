@@ -7,24 +7,28 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<title>Sistema de productos</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta charset="utf-8">
-		<link rel="stylesheet" href="././Bootstrap/css/bootstrap.min.css">
-		<link rel="stylesheet" href="././fontawesome/css/all.min.css">
-		<link rel="stylesheet" type="text/css" href="././css/estilo.css">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>resource/Bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" href="<?php echo base_url(); ?>resource/fontawesome/css/all.min.css">
+		<link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>resource/css/estilo.css">
 	</head>
 	<body>
 		<div class="container bg-white rounded">
 			<div class="mt-5 d-flex">
 				<div class="col-4">
 					<a href="sesion">iniciar sesion</a>
-					<form action="" class="mt-5">
+					<form action="<?php echo base_url('inicio/search_id') ?>" method="POST" class="mt-5">
 						<div class="form-group form-inline">
 							<input name="id" type="text" class="form-control mr-1" placeholder="Buscar por ID">
 							<input type="submit" class="btn btn-primary" value="Buscar">
 						</div>
+					</form>
+					<form action="<?php echo base_url('inicio/search_name') ?>" method="POST">
 						<div class="form-group form-inline">
 							<input name="nombre" type="text" class="form-control mr-1" placeholder="Buscar por Nombre">
 							<input type="submit" class="btn btn-primary" value='Buscar'>
 						</div>
+					</form>
+					<form action="<?php echo base_url('inicio/search_type') ?>" method="POST">
 						<div class="custom-control form-inline p-0 mb-5">
 							<select name="categoria" id="categoria" class="custom-select">
 								<option value="">Selecciona Categoría</option>
@@ -52,7 +56,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							</tr>
 						</thead>
 						<tbody>
-							<?php /*
+							<?php 
+							if(isset($empty)){
+								echo "<tr>";
+								echo "<td>"."</td>";
+								echo "<td>".'Ningun Resultado'."</td>";
+								echo "<td>"."</td>";
+								echo "<td>"."</td>";
+								echo "<td>"."</td>";
+								echo "</tr>";
+							} else {
 							foreach ($query->result() as $result) {
 								echo "<tr>";
 								echo "<td>".$result->id."</td>";
@@ -61,7 +74,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								echo "<td>".$result->existencia."</td>";
 								echo "<td>".$result->precio."</td>";
 								echo "</tr>";
-							} */
+								}
+							}
 							?>
 						</tbody>
 					</table>
@@ -70,8 +84,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		</div>
 
 
-		<script src="Bootstrap/js/jquery.js" type="text/javascript"></script>
-		<script src="Bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
-		<script src="Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+		<script src="<?php echo base_url(); ?>resource/Bootstrap/js/jquery.js" type="text/javascript"></script>
+		<script src="<?php echo base_url(); ?>resource/Bootstrap/js/bootstrap.bundle.min.js" type="text/javascript"></script>
+		<script src="<?php echo base_url(); ?>resource/Bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	</body>
 </html>
