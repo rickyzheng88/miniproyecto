@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$this->load->library('session');
 ?>
 <!DOCTYPE html>
 <html lang='es'>
@@ -15,20 +16,30 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<div class="container bg-white rounded">
 			<div class="mt-5 d-flex">
 				<div class="col-4">
-					<a href="sesion">iniciar sesion</a>
-					<form action="<?php echo base_url('inicio/search_id') ?>" method="POST" class="mt-5">
+					<?php
+					if (!isset($this->session->usuario)) {
+						echo "<a href='".base_url('sesion')."'>iniciar sesion</a>";
+					} else {
+						echo "Bienvenidos ".$this->session->usuario."!";
+						 echo "<a href='".base_url('sesion/cerrar_sesion')."'> Cerrar sesión</a>";
+
+					}
+					
+					?>
+					<form action="<?php echo base_url('inicio/search_products') ?>" method="POST" class="mt-5">
 						<div class="form-group form-inline">
 							<input name="id" type="text" class="form-control mr-1" placeholder="Buscar por ID">
 							<input type="submit" class="btn btn-primary" value="Buscar">
 						</div>
 					</form>
-					<form action="<?php echo base_url('inicio/search_name') ?>" method="POST">
+					<form action="<?php echo base_url('inicio/search_products') ?>" method="POST">
 						<div class="form-group form-inline">
 							<input name="nombre" type="text" class="form-control mr-1" placeholder="Buscar por Nombre">
+							<input type="hidden" name="wol" value='TRUE'>
 							<input type="submit" class="btn btn-primary" value='Buscar'>
 						</div>
 					</form>
-					<form action="<?php echo base_url('inicio/search_type') ?>" method="POST">
+					<form action="<?php echo base_url('inicio/search_products') ?>" method="POST">
 						<div class="custom-control form-inline p-0 mb-5">
 							<select name="categoria" id="categoria" class="custom-select">
 								<option value="">Selecciona Categoría</option>

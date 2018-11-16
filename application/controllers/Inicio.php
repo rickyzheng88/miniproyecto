@@ -8,6 +8,7 @@ class Inicio extends CI_Controller
 	{
 		parent::__construct();
 		$this->load->model('system');
+		$this->load->library('session');
 	}
 
 	public function index()
@@ -23,10 +24,16 @@ class Inicio extends CI_Controller
 		$data['insert'];
 	}
 
-	public function search_id()
+	public function search_products()
 	{
 		if($this->input->post()){
-			$query = $this->system->product_search($_POST['id']);
+			$values = (array_values($_POST));
+
+			$campo = array_search($values[0], $_POST);
+
+			$wol = (isset($_POST['wol'])) ? $wol = TRUE : $wol = FALSE;
+
+			$query = $this->system->product_search($values[0], $campo, $wol);
 			if($query->row_array()<1){
 				$data['empty'] = TRUE;
 				$this->load->view('index', $data);
@@ -37,37 +44,7 @@ class Inicio extends CI_Controller
 		} else {
 			$this->load->view('index');
 		}
+
 	}
 
-	public function search_name()
-	{
-		if($this->input->post()){
-			$query = $this->system->product_search_name($_POST['nombre']);
-			if($query->row_array()<1){
-				$data['empty'] = TRUE;
-				$this->load->view('index', $data);
-			} else {
-				$data['query'] = $query;
-				$this->load->view('index', $data);
-			}
-		} else {
-			$this->load->view('index');
-		}
-	}
-
-	public function search_type()
-	{
-		if($this->input->post()){
-			$query = $this->system->product_search_type($_POST['categoria']);
-			if($query->row_array()<1){
-				$data['empty'] = TRUE;
-				$this->load->view('index', $data);
-			} else {
-				$data['query'] = $query;
-				$this->load->view('index', $data);
-			}
-		} else {
-			$this->load->view('index');
-		}
-	}
 }

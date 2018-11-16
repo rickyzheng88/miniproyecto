@@ -1,3 +1,13 @@
 body{
 	background-color: #cdcdcd;
 }
+
+#contenedor{
+	width: 600px;
+	height: 450px;
+}
+
+#contenedor2{
+	width: 600px;
+	height: 500px;
+}
