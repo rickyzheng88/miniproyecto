@@ -27,22 +27,6 @@ class System extends CI_Model
 		return $this->db->get('productos');
 	}
 
-	/*public function product_search_name($field)
-	{
-		return $this->db->select('(productos.id) as id, (productos.nombre) as nombre, existencia, precio,(catalogo.nombre) as catalogo')
-						->join('catalogo', 'idcategoria = catalogo.id', 'inner')
-						->like(array('productos.nombre' => $field))
-						->get('productos');
-	}
-
-	public function product_search_type($field)
-	{
-		return $this->db->select('(productos.id) as id, (productos.nombre) as nombre, existencia, precio,(catalogo.nombre) as catalogo')
-						->join('catalogo', 'idcategoria = catalogo.id', 'inner')
-						->where(array('productos.idcategoria' => $field))
-						->get('productos');
-	} */
-
 	public function user_validate($user,$password)
 	{
 		return $this->db->get_where('usuario', array('usuario' => $user, 'contraseña' => $password));
@@ -53,6 +37,10 @@ class System extends CI_Model
 		return $this->db->insert();
 	}
 
-
+	public function regist_validate($user)
+	{
+		return $this->db->where(array('usuario' => $user))
+						->get('usuario');
+	}
 }
 ?>
