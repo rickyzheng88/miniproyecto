@@ -18,15 +18,20 @@ $this->load->library('session');
 				<div class="col-4">
 					<?php
 					if (!isset($this->session->usuario)) {
-						echo "<a href='".base_url('sesion')."'>iniciar sesion</a>";
+						echo "<div class='mt-2'>";
+						echo "<a href='".base_url('sesion')."' class='btn btn-primary mb-2'>iniciar sesion</a>";
+						echo "</div>";
 					} else {
+						echo "<div class='mt-2'>";
 						echo "Bienvenidos ".$this->session->usuario."!";
-						 echo "<a href='".base_url('sesion/cerrar_sesion')."'> Cerrar sesión</a>";
-
+						echo "<a href='".base_url('sesion/cerrar_sesion')."' class='btn btn-danger btn-sm ml-2'> Cerrar sesión</a>";
+						echo "</div>";
 					}
-					
 					?>
-					<form action="<?php echo base_url('inicio/search_products') ?>" method="POST" class="mt-5">
+					<div>		
+					<a class="btn btn-primary btn-sm" href="<?php echo base_url('inicio'); ?>">inicio</a>
+					</div>
+					<form action="<?php echo base_url('inicio/search_products') ?>" method="POST" class="mt-2">
 						<div class="form-group form-inline">
 							<input name="id" type="text" class="form-control mr-1" placeholder="Buscar por ID">
 							<input type="submit" class="btn btn-primary" value="Buscar">
@@ -84,12 +89,21 @@ $this->load->library('session');
 								echo "<td>".$result->catalogo."</td>";
 								echo "<td>".$result->existencia."</td>";
 								echo "<td>".$result->precio."</td>";
+								if(isset($this->session->usuario)){
+									echo "<td><a title='Editar' href='".base_url('inicio/edit/'.$result->id.'')."'><i class='fas fa-edit'></i></a></td>";
+									echo "<td><a title='Eliminar' href='".base_url('inicio/delete/'.$result->id.'/productos')."'><i class='fas fa-trash-alt'></i></a></td>";
+								}
 								echo "</tr>";
 								}
 							}
 							?>
 						</tbody>
 					</table>
+					<?php  
+					if(isset($this->session->usuario)){
+						echo "<a href='".base_url('inicio/regist_products')."' class='btn btn-sm btn-warning float-right mb-2'>Crear nuevo producto</a>";
+					}
+					?>	
 				</div>
 			</div>
 		</div>

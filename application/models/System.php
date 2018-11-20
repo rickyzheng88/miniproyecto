@@ -27,20 +27,25 @@ class System extends CI_Model
 		return $this->db->get('productos');
 	}
 
-	public function user_validate($user,$password)
+	public function validate($table,$fields = array())
 	{
-		return $this->db->get_where('usuario', array('usuario' => $user, 'contraseña' => $password));
+		return $this->db->get_where($table, $fields);
 	}
 
-	public function regist_user($user,$password,$email,$phone)
+	public function insert($table,$fields = array())
 	{
-		return $this->db->insert();
+		return $this->db->insert($table, $fields);
 	}
 
-	public function regist_validate($user)
+	public function delete($id,$table)
 	{
-		return $this->db->where(array('usuario' => $user))
-						->get('usuario');
+		return $this->db->delete($table, array('id' => $id));
+	}
+
+	public function update($table,$fields = array(), $id)
+	{
+			   $this->db->where('id',$id);
+		return $this->db->update($table, $fields);
 	}
 }
 ?>
